@@ -15,5 +15,4 @@ public class CollectibleInfo : ScriptableObject
 
     [field: SerializeField] public Material Material { get; private set; }
 
-  
 }

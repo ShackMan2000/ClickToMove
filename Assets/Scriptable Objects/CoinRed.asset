@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: 
   <PickUpEffect>k__BackingField: {fileID: 0}
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: -2413806693520163455, guid: 53f43be35dc08bc4d86845540edcda70,
+    type: 3}
   <Material>k__BackingField: {fileID: 2100000, guid: 0824a45ebe14b5a45829ef615fbd03d9,
     type: 2}

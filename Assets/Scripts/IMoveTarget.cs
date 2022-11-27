@@ -6,7 +6,7 @@ public interface IMoveTarget
 {
  
  
-    void Clicked(Vector3 clickPosition);
+    void Clicked();
  
  
  
