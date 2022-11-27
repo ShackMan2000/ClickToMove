@@ -19,6 +19,7 @@ public class FPS : MonoBehaviour
     {
         count = samples;
         totalTime = 0f;
+        Application.targetFrameRate = 60;
     }
 
     public void Update()

@@ -21,6 +21,8 @@ public class CollectibleCounter : MonoBehaviour
     private void OnEnable()
     {
         Collectible.OnCollected += IncreaseCount;
+        counterText.text = count.ToString();
+
     }
 
     private void IncreaseCount(Collectible c)

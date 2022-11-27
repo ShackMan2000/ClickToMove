@@ -18,6 +18,10 @@ public class Collectible : MonoBehaviour, IMoveTarget
 
     [field : SerializeField] public CollectibleInfo Info { get; private set; }
 
+    [field:SerializeField] public bool MoveToCenter { get; private set; }
+
+    public Vector3 Position => transform.position;
+
     public static event Action<Collectible> OnCollected = delegate { };
 
 
@@ -77,16 +81,14 @@ public class Collectible : MonoBehaviour, IMoveTarget
             progress+= Time.deltaTime / scaleOnClickDuration;
             transform.localScale = Vector3.Lerp(transform.localScale, expandScaleOnClick, progress);
 
-
-            Debug.Log(progress);
             yield return null;
         }
-
 
         progress= 0f;
 
         while (progress < 1f)
         {
+            progress += Time.deltaTime / scaleOnClickDuration;
             transform.localScale = Vector3.Lerp(expandScaleOnClick, originalScale, progress);
             yield return null;
         }

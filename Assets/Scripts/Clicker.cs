@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class Clicker : MonoBehaviour
 {
@@ -14,14 +15,17 @@ public class Clicker : MonoBehaviour
 
     public static event Action<Vector3> ClickedNewTarget = delegate { };
 
+    PointerEventData pointerData;
 
+    [SerializeField] GraphicRaycaster raycaster;
 
     private void Awake()
     {
         controls = new Controls();
-        controls.Enable();  
+        controls.Enable();
         cam = Camera.main;
-        Application.targetFrameRate = 90;
+
+        pointerData = new PointerEventData(null);
     }
 
     private void OnEnable()
@@ -29,14 +33,23 @@ public class Clicker : MonoBehaviour
         controls.Touch.MobileClick.performed += CheckForClickableHits;
     }
 
- 
+
 
     private void CheckForClickableHits(InputAction.CallbackContext obj)
     {
-        //clicked on UI
-        if(EventSystem.current.IsPointerOverGameObject())
+        // check if input is over UI element 
+        // pointer over UI only works with releasing finger, so doing this workaround
+
+        pointerData.position = controls.Touch.MobileClick.ReadValue<Vector2>();
+
+        List<RaycastResult> raycastResults = new List<RaycastResult>();
+
+        raycaster.Raycast(pointerData, raycastResults);
+
+        if (raycastResults.Count > 0)
             return;
-   
+
+
         Ray ray = cam.ScreenPointToRay(controls.Touch.MobileClick.ReadValue<Vector2>());
 
         if (Physics.Raycast(ray, out RaycastHit hit))
@@ -46,29 +59,19 @@ public class Clicker : MonoBehaviour
             if (target != null)
             {
                 target.Clicked();
-                ClickedNewTarget(hit.point);
+                if (target.MoveToCenter)
+                    ClickedNewTarget(target.Position);
+                else
+                    ClickedNewTarget(hit.point);
             }
 
         }
 
     }
 
-    //void Shoot(Vector2 clickScreenPosition)
-
-    //{
-    //    Ray ray = cam.ScreenPointToRay(clickScreenPosition);
-
-    //    if (Physics.Raycast(ray, out RaycastHit hit))
-    //    {
-    //        if (hit.collider.GetComponent<IMoveTarget>() != null)
-    //            ClickedNewTarget(hit.point);
-    //    }
-    //}
-
-
     private void OnDisable()
     {
-        controls.Disable();        
+        controls.Disable();
     }
 
 }

@@ -10,15 +10,21 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 targetPosition;
 
-    [SerializeField] float currentMoveSpeed;
+   public float CurrentMoveSpeed { get; private set; }
 
 
-    [SerializeField] Vector2 speedRange;
+
+    [field: SerializeField] public Vector2 SpeedRange { get; private set; }
+
+
+    private void Awake()
+    {
+        CurrentMoveSpeed = SpeedRange.x + ((SpeedRange.y - SpeedRange.x) / 2f);        
+    }
 
     void OnEnable()
     {
         Clicker.ClickedNewTarget += SetNewTarget;
-        currentMoveSpeed = speedRange.x + ((speedRange.y - speedRange.x) / 2f);
     }
 
     void SetNewTarget(Vector3 newTargetPosition)
@@ -31,31 +37,30 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if(isMovingToTarget)
+        if (isMovingToTarget)
         {
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, currentMoveSpeed * Time.deltaTime);
-            if(transform.position == targetPosition )
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, CurrentMoveSpeed * Time.deltaTime);
+            if (transform.position == targetPosition)
             {
-                isMovingToTarget= false;
+                isMovingToTarget = false;
             }
         }
     }
 
 
 
-    public void ChangeMoveSpeed(float changeBy)
+    public void SetMoveSpeed(float newSpeed)
     {
-        currentMoveSpeed = Mathf.Clamp(currentMoveSpeed + changeBy, speedRange.x, speedRange.y);
-
+        CurrentMoveSpeed = newSpeed;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         var collectible = other.GetComponent<Collectible>();
-        collectible?.PickUp();        
-        
+        collectible?.PickUp();
+
     }
-  
+
 
 
 

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2694591174118878485}
   - component: {fileID: 3010416795190541303}
   - component: {fileID: 1925301212353636231}
+  - component: {fileID: 1418574067}
   m_Layer: 0
   m_Name: Collectible
   m_TagString: Untagged
@@ -111,7 +112,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 2694591174118878485}
-  expandScaleOnClick: {x: 0.3, y: 0.3, z: 0.3}
-  scaleOnClickDuration: 0.5
+  expandScaleOnClick: {x: 0.4, y: 0.4, z: 0.4}
+  scaleOnClickDuration: 0.3
   <Info>k__BackingField: {fileID: 11400000, guid: 302a6761d86035a46b2cbafc10b6cfe2,
     type: 2}
+  <MoveToCenter>k__BackingField: 1
+--- !u!114 &1418574067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 809812796336444264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a35d9f8227bf17429b703a2c1c2bc3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sCollider: {fileID: 3010416795190541303}
+  maxRadius: 3
+  distanceRangeToAdjust: {x: 6, y: 20}
+  safeDistanceToPlayer: 1

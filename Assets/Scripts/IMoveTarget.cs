@@ -7,7 +7,7 @@ public interface IMoveTarget
  
  
     void Clicked();
- 
- 
- 
+    bool MoveToCenter { get; }
+
+    Vector3 Position { get; }
 }
